@@ -50,6 +50,6 @@ export const ResponsiveCalendar: React.FC<IResponsiveCalendarProps> = ({ withWee
   }
 
   return (
-    <WeekCalendar date={date} withWeekDays={withWeekDays} />
+    <WeekCalendar date={date} view={view} renderCell={renderCell} />
   )
 }

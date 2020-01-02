@@ -2,6 +2,7 @@ import * as React from 'react'
 import addDays from 'date-fns/addDays'
 import startOfWeek from 'date-fns/startOfWeek'
 import { RenderCellFn, defaultCellRenderer } from './RenderCell'
+import { ViewType } from './types'
 
 interface IDayViewProps {
   date: Date
@@ -9,7 +10,7 @@ interface IDayViewProps {
 }
 export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer }) => {
   return (
-    <div style={{ height: 100, width: '100%' }}>
+    <div style={{ width: '100%' }}>
       {renderCell({ date })}
     </div>
   )
@@ -17,16 +18,16 @@ export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCel
 
 interface IWeekViewProps {
   date: Date
-  withWeekDays?: boolean
+  renderCell?: RenderCellFn
 }
-export const WeekView: React.FC<IWeekViewProps> = ({ date, withWeekDays }) => {
+export const WeekView: React.FC<IWeekViewProps> = ({ date, renderCell }) => {
   const startOfCurrentWeek = startOfWeek(date)
   let days = []
 
 
   for (let i = 0; i < 7; i++) {
     const day = addDays(startOfCurrentWeek, i)
-    days.push(<DayView key={day.getTime()} date={day} />)
+    days.push(<DayView key={day.getTime()} date={day} renderCell={renderCell} />)
   }
 
   return (
@@ -38,11 +39,11 @@ export const WeekView: React.FC<IWeekViewProps> = ({ date, withWeekDays }) => {
 
 interface IWeekCalendarProps {
   date: Date
+  view: ViewType
   renderCell?: RenderCellFn
-  withWeekDays?: boolean
 }
-export const WeekCalendar: React.FC<IWeekCalendarProps> = ({ date = new Date(), withWeekDays }) => {
+export const WeekCalendar: React.FC<IWeekCalendarProps> = ({ date = new Date(), renderCell }) => {
   return (
-    <WeekView date={date} withWeekDays={withWeekDays} />
+    <WeekView date={date} renderCell={renderCell} />
   )
 }
