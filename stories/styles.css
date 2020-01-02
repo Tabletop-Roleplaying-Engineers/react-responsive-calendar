@@ -1,0 +1,32 @@
+.week-day {
+  text-align: right;
+}
+
+.calendar-cell {
+  text-align: right;
+  border-top: 2px solid #d3d3d3;
+  margin: 0 5px;
+  display: flex;
+  height: 150px;
+}
+
+.calendar-cell:hover {
+  background-color: #E61721;
+}
+
+.calendar-cell.today {
+  border-color: #E61721;
+}
+
+.cell-left {
+  width: calc(100% - 30px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cell-right {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+}

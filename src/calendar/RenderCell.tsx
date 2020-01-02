@@ -6,5 +6,9 @@ interface IRenderCellProps {
 export type RenderCellFn = (props: IRenderCellProps) => React.ReactNode
 
 export const defaultCellRenderer: RenderCellFn = ({ date }) => {
-  return date.getDate()
+  return (
+    <div style={{ height: 100 }}>
+      {date.getDate()}
+    </div>
+  )
 }

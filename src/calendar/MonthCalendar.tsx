@@ -8,7 +8,6 @@ import startOfWeek from 'date-fns/startOfWeek'
 import { defaultCellRenderer, RenderCellFn } from './RenderCell'
 import { defaultWeekDayRenderer, RenderWeekDayFn } from './RenderWeekDay'
 import { ViewType } from './types'
-import './styles.css'
 
 interface IDayViewProps {
   date: Date
@@ -16,7 +15,7 @@ interface IDayViewProps {
 }
 export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer }) => {
   return (
-    <div style={{ height: 100, width: 'calc(100% / 7)' }}>
+    <div style={{ width: 'calc(100% / 7)' }}>
       {renderCell({ date })}
     </div>
   )
@@ -61,7 +60,7 @@ export const WeekDays: React.FC<IWeekDaysProps> = ({ date, view, renderWeekDay }
 
 export const EmptyDayView = () => {
   return (
-    <div style={{ height: 100, width: 'calc(100% / 7)' }}>
+    <div style={{ width: 'calc(100% / 7)' }}>
     </div>
   )
 }

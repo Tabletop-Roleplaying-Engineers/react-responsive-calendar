@@ -3,8 +3,6 @@ import addDays from 'date-fns/addDays'
 import startOfWeek from 'date-fns/startOfWeek'
 import { RenderCellFn, defaultCellRenderer } from './RenderCell'
 
-import './styles.css'
-
 interface IDayViewProps {
   date: Date
   renderCell?: RenderCellFn

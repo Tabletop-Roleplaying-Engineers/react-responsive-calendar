@@ -2,9 +2,9 @@ import * as React from 'react'
 import addMonths from 'date-fns/addMonths'
 import addWeeks from 'date-fns/addWeeks'
 import format from 'date-fns/format'
-import { ResponsiveCalendar } from './ResponsiveCalendar'
-import { ViewType } from './types'
-import '../styles.css'
+import isToday from 'date-fns/isToday'
+import { ResponsiveCalendar, ViewType } from '../src/calendar'
+import '../src/styles.css'
 import './styles.css'
 
 export default {
@@ -16,7 +16,7 @@ export const WithWeekDays = () => <ResponsiveCalendar withWeekDays />
 
 export const Customized = () => {
   const [date, setDate] = React.useState(new Date())
-  const [incrementFn, setIncrementFn] = React.useState<{ increment: Function}>({
+  const [incrementFn, setIncrementFn] = React.useState<{ increment: Function }>({
     increment: addMonths,
   })
   const viewChangeHandler = React.useCallback((view) => {
@@ -34,9 +34,19 @@ export const Customized = () => {
     )
   }, [])
   const renderCell = React.useCallback(({ date }) => {
+    const today = isToday(date)
     return (
-      <div className="calendar-cell">
-        {format(date, 'dd')}
+      <div className={`calendar-cell ${today ? 'today' : ''}`}>
+        <div
+          className="cell-left"
+          style={{ backgroundImage: 'url(https://via.placeholder.com/150)' }}
+        >
+        </div>
+        <div className="cell-right">
+          <div className="date">
+            {format(date, 'dd')}
+          </div>
+        </div>
       </div>
     )
   }, [])
