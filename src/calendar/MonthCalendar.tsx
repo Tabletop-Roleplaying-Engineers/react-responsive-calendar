@@ -5,9 +5,9 @@ import getDay from 'date-fns/getDay'
 import addDays from 'date-fns/addDays'
 import subDays from 'date-fns/subDays'
 import startOfWeek from 'date-fns/startOfWeek'
-import format from 'date-fns/format'
 import { defaultCellRenderer, RenderCellFn } from './RenderCell'
-
+import { defaultWeekDayRenderer, RenderWeekDayFn } from './RenderWeekDay'
+import { ViewType } from './types'
 import './styles.css'
 
 interface IDayViewProps {
@@ -24,24 +24,32 @@ export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCel
 
 interface IWeekDayProps {
   date: Date
+  view: ViewType
+  renderWeekDay?: RenderWeekDayFn
 }
-export const WeekDay: React.FC<IWeekDayProps> = ({ date }) => {
-  const day = getDay(date)
+export const WeekDay: React.FC<IWeekDayProps> = ({ date, renderWeekDay = defaultWeekDayRenderer, view }) => {
   return (
     <div style={{ width: 'calc(100% / 7)' }}>
-      {format(date, 'E')}
+      {renderWeekDay({
+        date,
+        view: view
+      })}
     </div>
   )
 }
 
-export const WeekDays = () => {
-  const now = new Date()
-  const startOfCurrentWeek = startOfWeek(now)
+interface IWeekDaysProps {
+  date: Date
+  view: ViewType
+  renderWeekDay?: RenderWeekDayFn
+}
+export const WeekDays: React.FC<IWeekDaysProps> = ({ date, view, renderWeekDay }) => {
+  const startOfCurrentWeek = startOfWeek(date)
   const days = []
 
   for (let i = 0; i < 7; i++) {
     const day = addDays(startOfCurrentWeek, i)
-    days.push(<WeekDay key={day.getTime()} date={day} />)
+    days.push(<WeekDay key={day.getTime()} date={day} view={view} renderWeekDay={renderWeekDay} />)
   }
 
   return (
@@ -60,10 +68,12 @@ export const EmptyDayView = () => {
 
 interface IMonthViewProps {
   date: Date
+  view: ViewType
   withWeekDays?: boolean
+  renderWeekDay?: RenderWeekDayFn
+  renderCell?: RenderCellFn
 }
-export const MonthView: React.FC<IMonthViewProps> = ({ date, withWeekDays }) => {
-  // const currentDate = new Date(date);
+export const MonthView: React.FC<IMonthViewProps> = ({ date, withWeekDays, renderWeekDay, view, renderCell }) => {
   const firstDayOfMonth = startOfMonth(date);
   const daysInMonth = getDaysInMonth(date)
   const weekDayOfFirstDay = getDay(firstDayOfMonth)
@@ -80,29 +90,18 @@ export const MonthView: React.FC<IMonthViewProps> = ({ date, withWeekDays }) => 
   for (let i = 0; i < daysInMonth; i++) {
     const day = addDays(firstDayOfMonth, i)
     days.push((
-      <DayView key={day.getTime()} date={day} />
+      <DayView key={day.getTime()} date={day} renderCell={renderCell} />
     ))
   }
 
   return (
     <>
       {withWeekDays && (
-        <WeekDays />
+        <WeekDays date={date} view={view} renderWeekDay={renderWeekDay} />
       )}
       <div className="flex wrap row">
         {days}
       </div>
     </>
-  )
-}
-
-interface IMonthCalendarProps {
-  date: Date
-  renderCell?: RenderCellFn
-  withWeekDays?: boolean
-}
-export const MonthCalendar: React.FC<IMonthCalendarProps> = ({ date = new Date(), withWeekDays }) => {
-  return (
-    <MonthView date={date} withWeekDays={withWeekDays} />
   )
 }

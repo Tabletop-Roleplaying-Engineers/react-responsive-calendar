@@ -1,19 +1,19 @@
 import * as React from 'react'
 import { useState } from 'react'
-import { MonthCalendar } from './MonthCalendar'
+import { MonthView } from './MonthCalendar'
 import { WeekCalendar } from './WeekCalendar'
-
-export enum ViewType {
-  MOBILE = 'MOBILE',
-  DESKTOP = 'DESKTOP',
-}
+import { ViewType } from './types'
+import { RenderWeekDayFn } from './RenderWeekDay'
+import { RenderCellFn } from './RenderCell'
 
 interface IResponsiveCalendarProps {
   withWeekDays?: boolean
   date?: Date
   onViewChanged?: (view: ViewType) => void
+  renderWeekDay?: RenderWeekDayFn
+  renderCell?: RenderCellFn
 }
-export const ResponsiveCalendar: React.FC<IResponsiveCalendarProps> = ({ withWeekDays, date = new Date(), onViewChanged }) => {
+export const ResponsiveCalendar: React.FC<IResponsiveCalendarProps> = ({ withWeekDays, date = new Date(), onViewChanged, renderWeekDay, renderCell }) => {
   const [view, setView] = useState<ViewType>()
   const updateView = React.useCallback((size: number) => {
     if (size > 375) {
@@ -45,7 +45,7 @@ export const ResponsiveCalendar: React.FC<IResponsiveCalendarProps> = ({ withWee
 
   if (view === ViewType.DESKTOP) {
     return (
-      <MonthCalendar date={date} withWeekDays={withWeekDays} />
+      <MonthView date={date} withWeekDays={withWeekDays} view={view} renderWeekDay={renderWeekDay} renderCell={renderCell} />
     )
   }
 

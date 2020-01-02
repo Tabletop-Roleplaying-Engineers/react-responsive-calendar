@@ -1,8 +1,11 @@
 import * as React from 'react'
 import addMonths from 'date-fns/addMonths'
 import addWeeks from 'date-fns/addWeeks'
-import { ResponsiveCalendar, ViewType } from './ResponsiveCalendar'
+import format from 'date-fns/format'
+import { ResponsiveCalendar } from './ResponsiveCalendar'
+import { ViewType } from './types'
 import '../styles.css'
+import './styles.css'
 
 export default {
   title: 'ResponsiveCalendar',
@@ -11,7 +14,7 @@ export default {
 export const Default = () => <ResponsiveCalendar />
 export const WithWeekDays = () => <ResponsiveCalendar withWeekDays />
 
-export const Styled = () => {
+export const Customized = () => {
   const [date, setDate] = React.useState(new Date())
   const [incrementFn, setIncrementFn] = React.useState<{ increment: Function}>({
     increment: addMonths,
@@ -22,6 +25,20 @@ export const Styled = () => {
     } else {
       setIncrementFn({ increment: addMonths })
     }
+  }, [])
+  const renderWeekDay = React.useCallback(({ date }) => {
+    return (
+      <div className="week-day">
+        {format(date, 'E')}
+      </div>
+    )
+  }, [])
+  const renderCell = React.useCallback(({ date }) => {
+    return (
+      <div className="calendar-cell">
+        {format(date, 'dd')}
+      </div>
+    )
   }, [])
 
   return (
@@ -34,7 +51,13 @@ export const Styled = () => {
           Next
         </button>
       </div>
-      <ResponsiveCalendar date={date} onViewChanged={viewChangeHandler} withWeekDays />
+      <ResponsiveCalendar
+        date={date}
+        onViewChanged={viewChangeHandler}
+        renderWeekDay={renderWeekDay}
+        renderCell={renderCell}
+        withWeekDays
+      />
     </>
   )
 }
