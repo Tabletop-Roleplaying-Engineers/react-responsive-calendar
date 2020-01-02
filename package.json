@@ -2,12 +2,14 @@
   "name": "react-responsive-calendar",
   "version": "0.0.1",
   "description": "Responsive calendar for the events",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "publish": "build",
+    "release": "np"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,8 @@
     "url": "https://github.com/dmitrij-borchuk/react-responsive-calendar/issues"
   },
   "homepage": "https://github.com/dmitrij-borchuk/react-responsive-calendar#readme",
+  "np": {
+  },
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@storybook/addon-actions": "^5.2.8",
@@ -36,6 +40,7 @@
   },
   "dependencies": {
     "@types/date-fns": "^2.6.0",
-    "@types/react": "^16.9.17"
+    "@types/react": "^16.9.17",
+    "np": "^5.2.1"
   }
 }
