@@ -1,3 +1,3 @@
 import './styles.css'
 
-export default {}
+export { ResponsiveCalendar, ViewType } from './calendar'
