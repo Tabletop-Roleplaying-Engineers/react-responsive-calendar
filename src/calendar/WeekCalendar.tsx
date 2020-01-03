@@ -7,11 +7,13 @@ import { ViewType } from './types'
 interface IDayViewProps {
   date: Date
   renderCell?: RenderCellFn
+  isPreviousPeriod?: boolean
+  isNextPeriod?: boolean
 }
-export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer }) => {
+export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer, isPreviousPeriod = false, isNextPeriod = false }) => {
   return (
     <div style={{ width: '100%' }}>
-      {renderCell({ date })}
+      {renderCell({ date, isPreviousPeriod, isNextPeriod })}
     </div>
   )
 }

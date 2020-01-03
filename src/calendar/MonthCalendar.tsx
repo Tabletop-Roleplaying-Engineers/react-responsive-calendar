@@ -5,6 +5,7 @@ import getDay from 'date-fns/getDay'
 import addDays from 'date-fns/addDays'
 import subDays from 'date-fns/subDays'
 import startOfWeek from 'date-fns/startOfWeek'
+import endOfMonth from 'date-fns/endOfMonth'
 import { defaultCellRenderer, RenderCellFn } from './RenderCell'
 import { defaultWeekDayRenderer, RenderWeekDayFn } from './RenderWeekDay'
 import { ViewType } from './types'
@@ -12,11 +13,13 @@ import { ViewType } from './types'
 interface IDayViewProps {
   date: Date
   renderCell?: RenderCellFn
+  isPreviousPeriod?: boolean
+  isNextPeriod?: boolean
 }
-export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer }) => {
+export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer, isPreviousPeriod = false, isNextPeriod = false }) => {
   return (
     <div style={{ width: 'calc(100% / 7)' }}>
-      {renderCell({ date })}
+      {renderCell({ date, isPreviousPeriod, isNextPeriod })}
     </div>
   )
 }
@@ -74,15 +77,17 @@ interface IMonthViewProps {
 }
 export const MonthView: React.FC<IMonthViewProps> = ({ date, withWeekDays, renderWeekDay, view, renderCell }) => {
   const firstDayOfMonth = startOfMonth(date);
+  const lastDayOfMonth = endOfMonth(date);
   const daysInMonth = getDaysInMonth(date)
   const weekDayOfFirstDay = getDay(firstDayOfMonth)
+  const weekDayOfLastDay = getDay(lastDayOfMonth)
   let days = []
 
-  // Add empty days
+  // Add previous days
   for (let i = 0; i < weekDayOfFirstDay; i++) {
     const day = subDays(firstDayOfMonth, i + 1)
-    days.push((
-      <EmptyDayView key={day.getTime()} />
+    days.unshift((
+      <DayView key={day.getTime()} date={day} renderCell={renderCell} isPreviousPeriod />
     ))
   }
 
@@ -90,6 +95,14 @@ export const MonthView: React.FC<IMonthViewProps> = ({ date, withWeekDays, rende
     const day = addDays(firstDayOfMonth, i)
     days.push((
       <DayView key={day.getTime()} date={day} renderCell={renderCell} />
+    ))
+  }
+
+  // Add next days
+  for (let i = 0; i < 6 - weekDayOfLastDay; i++) {
+    const day = addDays(lastDayOfMonth, i + 1)
+    days.push((
+      <DayView key={day.getTime()} date={day} renderCell={renderCell} isNextPeriod />
     ))
   }
 
