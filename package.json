@@ -38,13 +38,13 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0"
   },
   "peerDependencies": {
     "react": "^16.12.0"
   },
   "dependencies": {
-    "babel-loader": "^8.0.6",
-    "css-loader": "^3.4.0"
   }
 }
