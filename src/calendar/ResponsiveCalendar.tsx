@@ -12,16 +12,25 @@ interface IResponsiveCalendarProps {
   onViewChanged?: (view: ViewType) => void
   renderWeekDay?: RenderWeekDayFn
   renderCell?: RenderCellFn
+  breakPoint?: number
 }
-export const ResponsiveCalendar: React.FC<IResponsiveCalendarProps> = ({ withWeekDays, date = new Date(), onViewChanged, renderWeekDay, renderCell }) => {
+export const ResponsiveCalendar: React.FC<IResponsiveCalendarProps> = (props) => {
+  const {
+    withWeekDays,
+    date = new Date(),
+    onViewChanged,
+    renderWeekDay,
+    renderCell,
+    breakPoint = 375,
+  } = props
   const [view, setView] = useState<ViewType>()
   const updateView = React.useCallback((size: number) => {
-    if (size > 375) {
+    if (size > breakPoint) {
       setView(ViewType.DESKTOP)
     } else {
       setView(ViewType.MOBILE)
     }
-  }, [])
+  }, [breakPoint])
   const onResize = React.useCallback((e) => {
     updateView(document.body.offsetWidth)
   }, [])

@@ -13,8 +13,9 @@ export default {
 
 export const Default = () => <ResponsiveCalendar />
 export const WithWeekDays = () => <ResponsiveCalendar withWeekDays />
+export const CustomBreakPoint = () => <ResponsiveCalendar breakPoint={768} />
 
-export const Customized = () => {
+export const CustomStyles = () => {
   const [date, setDate] = React.useState(new Date())
   const [incrementFn, setIncrementFn] = React.useState<{ increment: Function }>({
     increment: addMonths,
