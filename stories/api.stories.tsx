@@ -17,9 +17,11 @@ export const CustomBreakPoint = () => <ResponsiveCalendar breakPoint={768} />
 
 export const CustomStyles = () => {
   const [date, setDate] = React.useState(new Date())
-  const [incrementFn, setIncrementFn] = React.useState<{ increment: Function }>({
-    increment: addMonths,
-  })
+  const [incrementFn, setIncrementFn] = React.useState<{ increment: Function }>(
+    {
+      increment: addMonths,
+    },
+  )
   const viewChangeHandler = React.useCallback((view) => {
     if (view === ViewType.MOBILE) {
       setIncrementFn({ increment: addWeeks })
@@ -28,29 +30,29 @@ export const CustomStyles = () => {
     }
   }, [])
   const renderWeekDay = React.useCallback(({ date }) => {
-    return (
-      <div className="week-day">
-        {format(date, 'E')}
-      </div>
-    )
+    return <div className="week-day">{format(date, 'E')}</div>
   }, [])
-  const renderCell = React.useCallback(({ date, isPrevious, isNext, isMobile }) => {
-    const today = isToday(date)
-    return (
-      <div className={`calendar-cell ${today ? 'today' : ''}`}>
-        <div
-          className="cell-left"
-          style={{ backgroundImage: 'url(https://via.placeholder.com/150)' }}
-        >
-        </div>
-        <div className="cell-right">
-          <div className="date">
-            {isMobile ? format(date, 'dd') + " " + format(date, 'E') : format(date, 'dd')}
+  const renderCell = React.useCallback(
+    ({ date, isPrevious, isNext, isMobile }) => {
+      const today = isToday(date)
+      return (
+        <div className={`calendar-cell ${today ? 'today' : ''}`}>
+          <div
+            className="cell-left"
+            style={{ backgroundImage: 'url(https://via.placeholder.com/150)' }}
+          ></div>
+          <div className="cell-right">
+            <div className="date">
+              {isMobile
+                ? format(date, 'dd') + ' ' + format(date, 'E')
+                : format(date, 'dd')}
+            </div>
           </div>
         </div>
-      </div>
-    )
-  }, [])
+      )
+    },
+    [],
+  )
 
   return (
     <>
