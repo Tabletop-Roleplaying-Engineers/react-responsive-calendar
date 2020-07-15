@@ -34,7 +34,7 @@ export const CustomStyles = () => {
       </div>
     )
   }, [])
-  const renderCell = React.useCallback(({ date }) => {
+  const renderCell = React.useCallback(({ date, isPrevious, isNext, isMobile }) => {
     const today = isToday(date)
     return (
       <div className={`calendar-cell ${today ? 'today' : ''}`}>
@@ -45,7 +45,7 @@ export const CustomStyles = () => {
         </div>
         <div className="cell-right">
           <div className="date">
-            {format(date, 'dd')}
+            {isMobile ? format(date, 'dd') + " " + format(date, 'E') : format(date, 'dd')}
           </div>
         </div>
       </div>

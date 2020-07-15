@@ -4,6 +4,7 @@ interface IRenderCellProps {
   date: Date
   isPreviousPeriod: boolean
   isNextPeriod: boolean
+  isMobile: boolean
 }
 export type RenderCellFn = (props: IRenderCellProps) => React.ReactNode
 
