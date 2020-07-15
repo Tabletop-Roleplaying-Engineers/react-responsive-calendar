@@ -11,7 +11,13 @@ interface IDayViewProps {
   isNextPeriod?: boolean
   isMobile?: boolean
 }
-export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer, isPreviousPeriod = false, isNextPeriod = false, isMobile = true }) => {
+export const DayView: React.FC<IDayViewProps> = ({
+  date,
+  renderCell = defaultCellRenderer,
+  isPreviousPeriod = false,
+  isNextPeriod = false,
+  isMobile = true,
+}) => {
   return (
     <div style={{ width: '100%' }}>
       {renderCell({ date, isPreviousPeriod, isNextPeriod, isMobile })}
@@ -27,17 +33,16 @@ export const WeekView: React.FC<IWeekViewProps> = ({ date, renderCell }) => {
   const startOfCurrentWeek = startOfWeek(date)
   let days = []
 
-
-  for (let i = 0; i < 7; i++) {
+  // Add previous days
+  // i = 1 is Monday (0 is Sunday)
+  for (let i = 1; i < 8; i++) {
     const day = addDays(startOfCurrentWeek, i)
-    days.push(<DayView key={day.getTime()} date={day} renderCell={renderCell} />)
+    days.push(
+      <DayView key={day.getTime()} date={day} renderCell={renderCell} />,
+    )
   }
 
-  return (
-    <div className="flex wrap row">
-      {days}
-    </div>
-  )
+  return <div className="flex wrap row">{days}</div>
 }
 
 interface IWeekCalendarProps {
@@ -45,8 +50,9 @@ interface IWeekCalendarProps {
   view: ViewType
   renderCell?: RenderCellFn
 }
-export const WeekCalendar: React.FC<IWeekCalendarProps> = ({ date = new Date(), renderCell }) => {
-  return (
-    <WeekView date={date} renderCell={renderCell} />
-  )
+export const WeekCalendar: React.FC<IWeekCalendarProps> = ({
+  date = new Date(),
+  renderCell,
+}) => {
+  return <WeekView date={date} renderCell={renderCell} />
 }

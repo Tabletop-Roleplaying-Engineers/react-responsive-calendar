@@ -22,11 +22,11 @@ export const DayView: React.FC<IDayViewProps> = ({
   renderCell = defaultCellRenderer,
   isPreviousPeriod = false,
   isNextPeriod = false,
-  isMobile = false
+  isMobile = false,
 }) => {
   return (
     <div style={{ width: "calc(100% / 7)" }}>
-      {renderCell({ date, isPreviousPeriod, isNextPeriod, isMobile})}
+      {renderCell({ date, isPreviousPeriod, isNextPeriod, isMobile })}
     </div>
   );
 };
@@ -65,7 +65,6 @@ export const WeekDays: React.FC<IWeekDaysProps> = ({
     weekStartsOn: 1,
   });
   const days = [];
-  console.log("=-= startOfCurrentWeek", startOfCurrentWeek);
 
   for (let i = 0; i < 7; i++) {
     const day = addDays(startOfCurrentWeek, i);
@@ -106,9 +105,6 @@ export const MonthView: React.FC<IMonthViewProps> = ({
   const weekDayOfFirstDay = getDay(firstDayOfMonth);
   const weekDayOfLastDay = getDay(lastDayOfMonth);
   let days = [];
-
-  console.log("=-= firstDayOfMonth", firstDayOfMonth);
-  console.log("=-= weekDayOfFirstDay", weekDayOfFirstDay);
 
   // Add previous days
   // i = 1 is Monday (0 is Sunday)
