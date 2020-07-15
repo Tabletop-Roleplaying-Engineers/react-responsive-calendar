@@ -9,11 +9,12 @@ interface IDayViewProps {
   renderCell?: RenderCellFn
   isPreviousPeriod?: boolean
   isNextPeriod?: boolean
+  isMobile?: boolean
 }
-export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer, isPreviousPeriod = false, isNextPeriod = false }) => {
+export const DayView: React.FC<IDayViewProps> = ({ date, renderCell = defaultCellRenderer, isPreviousPeriod = false, isNextPeriod = false, isMobile = true }) => {
   return (
     <div style={{ width: '100%' }}>
-      {renderCell({ date, isPreviousPeriod, isNextPeriod })}
+      {renderCell({ date, isPreviousPeriod, isNextPeriod, isMobile })}
     </div>
   )
 }
