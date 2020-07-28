@@ -30,12 +30,10 @@ interface IWeekViewProps {
   renderCell?: RenderCellFn
 }
 export const WeekView: React.FC<IWeekViewProps> = ({ date, renderCell }) => {
-  const startOfCurrentWeek = startOfWeek(date)
+  const startOfCurrentWeek = startOfWeek(date, { weekStartsOn: 1 })
   let days = []
 
-  // Add previous days
-  // i = 1 is Monday (0 is Sunday)
-  for (let i = 1; i < 8; i++) {
+  for (let i = 0; i < 7; i++) {
     const day = addDays(startOfCurrentWeek, i)
     days.push(
       <DayView key={day.getTime()} date={day} renderCell={renderCell} />,
