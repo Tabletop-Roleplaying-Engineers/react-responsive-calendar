@@ -6,6 +6,8 @@
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
 
+const path = require('path')
+
 module.exports = {
   plugins: [
     // your custom plugins
@@ -15,8 +17,20 @@ module.exports = {
       // add your custom rules.
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
         exclude: /node_modules/,
+        // use: 'ts-loader',
+        use: [
+          'ts-loader',
+          {
+            loader: 'react-docgen-typescript-loader',
+            options: {
+              // Provide the path to your tsconfig.json so that your stories can
+              // display types from outside each individual story.
+              tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
+              setDisplayName: false,
+            },
+          },
+        ],
       },
       {
         test: /\.css$/i,
@@ -27,4 +41,4 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-};
+}

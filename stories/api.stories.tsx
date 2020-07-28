@@ -3,12 +3,21 @@ import addMonths from 'date-fns/addMonths'
 import addWeeks from 'date-fns/addWeeks'
 import format from 'date-fns/format'
 import isToday from 'date-fns/isToday'
+import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks'
 import { ResponsiveCalendar, ViewType } from '../src/calendar'
 import '../src/styles.css'
 import './styles.css'
 
 export default {
   title: 'ResponsiveCalendar',
+  component: ResponsiveCalendar,
+  parameters: {
+    info: { inline: true },
+    docs: {
+      container: DocsContainer,
+      page: DocsPage,
+    },
+  },
 }
 
 export const Default = () => <ResponsiveCalendar />
@@ -22,7 +31,7 @@ export const CustomStyles = () => {
       increment: addMonths,
     },
   )
-  const viewChangeHandler = React.useCallback((view) => {
+  const viewChangeHandler = React.useCallback(view => {
     if (view === ViewType.MOBILE) {
       setIncrementFn({ increment: addWeeks })
     } else {
@@ -33,7 +42,17 @@ export const CustomStyles = () => {
     return <div className="week-day">{format(date, 'E')}</div>
   }, [])
   const renderCell = React.useCallback(
-    ({ date, isPrevious, isNext, isMobile }) => {
+    ({
+      date,
+      isPreviousPeriod,
+      isNextPeriod,
+      isMobile,
+    }: {
+      date: Date
+      isPreviousPeriod: boolean
+      isNextPeriod: boolean
+      isMobile: boolean
+    }) => {
       const today = isToday(date)
       return (
         <div className={`calendar-cell ${today ? 'today' : ''}`}>
