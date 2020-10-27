@@ -1,5 +1,10 @@
 # react-responsive-calendar
 
+<p>
+  <a href="https://bundlephobia.com/result?p=react-responsive-calendar"><img src="https://badgen.net/bundlephobia/min/react-responsive-calendar" alt="bundlephobia min size"></a>
+  <a href="https://www.npmjs.com/package/react-responsive-calendar"><img src="https://badgen.net/npm/v/react-responsive-calendar" alt="npm version"></a>
+</p>
+
 Responsive calendar for the events
 
 ## Getting Started
