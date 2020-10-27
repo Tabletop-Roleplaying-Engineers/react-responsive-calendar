@@ -21,3 +21,6 @@ export const Month = () => (
 export const MonthNovember19 = () => (
   <MonthView date={new Date('2019-11-15')} view={ViewType.DESKTOP} />
 )
+export const MonthNovember_2020 = () => (
+  <MonthView date={new Date('2020-11-15')} view={ViewType.DESKTOP} />
+)

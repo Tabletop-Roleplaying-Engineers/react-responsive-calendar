@@ -104,10 +104,11 @@ export const MonthView: React.FC<IMonthViewProps> = ({
   const daysInMonth = getDaysInMonth(date)
   const weekDayOfFirstDay = getDay(firstDayOfMonth)
   const weekDayOfLastDay = getDay(lastDayOfMonth)
+  const needToAddDays = weekDayOfFirstDay === 0 ? 6 : weekDayOfFirstDay - 1
   let days = []
 
   // Add previous days
-  for (let i = 0; i < weekDayOfFirstDay - 1; i++) {
+  for (let i = 0; i < needToAddDays; i++) {
     const day = subDays(firstDayOfMonth, i + 1)
     days.unshift(
       <DayView
