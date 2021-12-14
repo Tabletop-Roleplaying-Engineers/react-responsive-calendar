@@ -1,6 +1,6 @@
 {
   "name": "react-responsive-calendar",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Responsive calendar for the events",
   "main": "dist/bundle.js",
   "types": "dist/src/calendar/index.d.ts",
